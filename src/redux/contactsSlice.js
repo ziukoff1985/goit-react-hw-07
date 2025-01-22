@@ -1,53 +1,54 @@
-import { createSlice } from '@reduxjs/toolkit'; // Імпорт функції createSlice з бібліотеки @reduxjs/toolkit для створення slice
+import { createSlice } from '@reduxjs/toolkit';
+import { deleteContactThunk, fetchDataThunk } from './contactsOps';
 
-// Створюємо slice для зміни стану контактів
 const contactsSlice = createSlice({
-  name: 'contacts', // Назва slice, яка визначає його частину стану
+  name: 'contacts',
   initialState: {
-    items: [], // Початковий стан контактів - порожній масив
+    items: [],
+    isLoading: false,
+    isError: null,
   },
   reducers: {
-    // Редюсер для додавання нового контакту
-    // Використовується в компоненті 'ContactForm'
     addContact: (state, action) => {
-      state.items.push(action.payload); // Додаємо новий контакт до масиву items
+      state.items.push(action.payload);
     },
-    // Редюсер для видалення контакту за id
-    // Використовується в компоненті 'Contact'
+
     deleteContact: (state, action) => {
       state.items = state.items.filter(
-        contact => contact.id !== action.payload // Фільтруємо масив контактів, щоб видалити контакт з переданим id
+        contact => contact.id !== action.payload
       );
     },
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+    setIsError: (state, action) => {
+      state.isError = action.payload;
+    },
+    fetchDataSuccess: (state, action) => {
+      state.items = action.payload;
+    },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchDataThunk.fulfilled, (state, action) => {
+        state.items = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchDataThunk.rejected, (state, action) => {
+        state.isError = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchDataThunk.pending, state => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(deleteContactThunk.fulfilled, (state, action) => {
+        state.items = state.items.filter(item => item.id !== action.payload.id);
+      });
   },
 });
 
-// Експортуємо action 'addContact' і 'deleteContact' для використання в компонентах
-export const { addContact, deleteContact } = contactsSlice.actions;
+export const { addContact, setIsError, setIsLoading, fetchDataSuccess } =
+  contactsSlice.actions;
 
-// Експортуємо редюсер для додавання його в Redux store
 export const contactsReducer = contactsSlice.reducer;
-
-// ======================================================== //
-
-// *** Логіка ***
-
-// »»» "createSlice":
-// Створює slice для контактів, що включає в себе редюсери, початковий стан та автоматично згенеровані дії.
-
-// »»» "name":
-// Назва slice у createSlice, яка визначає частину стану, що буде керуватися цим slice. У нашому випадку це "contacts".
-
-// »»» "initialState":
-// Початковий стан slice. Визначено, що items (список контактів) — це порожній масив.
-
-// »»» reducers:
-// Редюсери для зміни стану:
-// - addContact: Додає новий контакт до масиву items. Значення контакту передається через action.payload.
-// - deleteContact: Видаляє контакт з масиву items за допомогою фільтрації по id. Якщо id контакту не співпадає з action.payload, то контакт залишається в масиві.
-
-// »»» "addContact" та "deleteContact":
-// Це згенеровані автоматично дії, які дозволяють додавати або видаляти контакти з Redux-стану.
-
-// »»» "contactsReducer":
-// Експортуємо редюсер для використання в основному store Redux. Це дозволяє управлінню контактами відбуватись через цей slice.

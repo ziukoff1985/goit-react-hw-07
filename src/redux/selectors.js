@@ -1,15 +1,7 @@
-// Функція-селектор для отримання списку контактів зі стану Redux
-// Цей селектор використовує state і повертає список контактів (items) з частини стану, що відповідає за контакти.
-// Використовується в компоненті ContactList, доступ до списку контактів, щоб їх відобразити..
 export const selectContacts = state => state.contacts.items;
 
-// Функція-селектор для отримання фільтру за ім'ям зі стану Redux
-// Цей селектор отримує state і повертає значення фільтру за ім'ям, що зберігається в частині стану, що відповідає за фільтри.
-// Використовується в компонентах ContactList і SearchBox для фільтрації контактів за ім'ям.
 export const selectNameFilter = state => state.filters.name;
 
-// selectContacts:
-// - ця функція є селектором, який отримує зі стану Redux список контактів (state.contacts.items). Вона дозволяє компонентам, таким як ContactList, отримати доступ до списку контактів, щоб їх відобразити.
+export const selectIsLoading = state => state.contacts.isLoading;
 
-// selectNameFilter:
-// - цей селектор отримує значення фільтру за ім'ям зі стану Redux (state.filters.name). Він використовується для доступу до фільтру, який дозволяє компонувати пошук або фільтрацію контактів за ім'ям у компонентах, таких як ContactList або SearchBox.
+export const selectIsError = state => state.contacts.isError;
