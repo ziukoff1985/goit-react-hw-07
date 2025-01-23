@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteContactThunk, fetchDataThunk } from './contactsOps';
+import {
+  addContactThunk,
+  deleteContactThunk,
+  fetchDataThunk,
+} from './contactsOps';
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -8,28 +12,10 @@ const contactsSlice = createSlice({
     isLoading: false,
     isError: null,
   },
-  reducers: {
-    addContact: (state, action) => {
-      state.items.push(action.payload);
-    },
 
-    deleteContact: (state, action) => {
-      state.items = state.items.filter(
-        contact => contact.id !== action.payload
-      );
-    },
-    setIsLoading: (state, action) => {
-      state.isLoading = action.payload;
-    },
-    setIsError: (state, action) => {
-      state.isError = action.payload;
-    },
-    fetchDataSuccess: (state, action) => {
-      state.items = action.payload;
-    },
-  },
   extraReducers: builder => {
     builder
+      // Fetch contacts
       .addCase(fetchDataThunk.fulfilled, (state, action) => {
         state.items = action.payload;
         state.isLoading = false;
@@ -42,8 +28,31 @@ const contactsSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
       })
+      // Delete contact
       .addCase(deleteContactThunk.fulfilled, (state, action) => {
         state.items = state.items.filter(item => item.id !== action.payload.id);
+        state.isLoading = false;
+      })
+      .addCase(deleteContactThunk.rejected, (state, action) => {
+        state.isError = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(deleteContactThunk.pending, state => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      // Add contact
+      .addCase(addContactThunk.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+        state.isLoading = false;
+      })
+      .addCase(addContactThunk.rejected, (state, action) => {
+        state.isError = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(addContactThunk.pending, state => {
+        state.isLoading = true;
+        state.isError = false;
       });
   },
 });

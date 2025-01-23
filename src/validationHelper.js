@@ -1,4 +1,4 @@
-import * as Yup from 'yup'; // Бібліотека Yup (валідація форми)
+import * as Yup from 'yup';
 
 // Валідаційна схема для форми (бібліотека Yup) в компоненті 'ContactForm'
 const FormValidationSchema = Yup.object().shape({

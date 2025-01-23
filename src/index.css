@@ -1,5 +1,5 @@
 body {
-  background: url("/bg.jpg") no-repeat;
+  background: url('/bg.jpg') no-repeat;
   background-size: cover;
   background-position: center;
   margin: 0;
@@ -16,12 +16,6 @@ body {
     background-size: auto 100%;
   }
 }
-
-/* @media (max-width: 480px) {
-  body {
-    background-size: auto 100%;
-  }
-} */
 
 h1 {
   font-size: 3.2em;

@@ -58,7 +58,7 @@
   transition: all 1s;
   &:after,
   &:before {
-    content: " ";
+    content: ' ';
     width: 10px;
     height: 10px;
     position: absolute;
@@ -90,7 +90,6 @@
 }
 
 @media (max-width: 768px) {
-  /* Для планшетів */
   .contactCard {
     width: 100%;
     padding: 15px;
@@ -113,7 +112,6 @@
   }
 
   .contactCardWrap {
-    /* margin-bottom: 10px; */
     margin-right: auto;
   }
 

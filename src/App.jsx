@@ -6,6 +6,9 @@ import SearchBox from './components/SearchBox/SearchBox';
 import { useEffect } from 'react';
 import { fetchDataThunk } from './redux/contactsOps';
 import { selectIsError, selectIsLoading } from './redux/selectors';
+import Loader from './components/Loader/Loader';
+import { Toaster } from 'react-hot-toast';
+import Error from './components/Error/Error';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,12 +22,13 @@ function App() {
 
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <h1 className="title">Phonebook</h1>
       <ContactForm />
       <SearchBox />
-      {isError && <h2>Something went wrong!</h2>}
-      {isLoading && <h2>Loading...</h2>}
-      <ContactList />
+      {isError && <Error />}
+      {isLoading && <Loader />}
+      {!isLoading && <ContactList />}
     </>
   );
 }
