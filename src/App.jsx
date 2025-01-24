@@ -4,7 +4,7 @@ import ContactForm from './components/ContactForm/ContactForm';
 import ContactList from './components/ContactList/ContactList';
 import SearchBox from './components/SearchBox/SearchBox';
 import { useEffect } from 'react';
-import { fetchDataThunk } from './redux/contactsOps';
+import { fetchContactsThunk } from './redux/contactsOps';
 import { selectIsError, selectIsLoading } from './redux/selectors';
 import Loader from './components/Loader/Loader';
 import { Toaster } from 'react-hot-toast';
@@ -14,7 +14,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchDataThunk());
+    dispatch(fetchContactsThunk());
   }, [dispatch]);
 
   const isError = useSelector(selectIsError);

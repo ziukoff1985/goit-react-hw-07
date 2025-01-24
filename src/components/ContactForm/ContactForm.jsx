@@ -12,11 +12,7 @@ const ContactForm = () => {
   const numberFieldId = useId();
 
   const handleSubmit = (values, actions) => {
-    const newContact = {
-      name: values.name,
-      number: values.number,
-    };
-    dispatch(addContactThunk(newContact));
+    dispatch(addContactThunk(values));
     actions.resetForm();
   };
 
