@@ -2,7 +2,7 @@
 // 'isAnyOf' утиліта - використовується в 'addMatcher'
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-// Імпорт асинхронних операції, створені через 'createAsyncThunk' (з файлу contactsOps.js)
+// Імпорт асинхронних операцій, створені через 'createAsyncThunk' (з файлу contactsOps.js)
 import {
   addContactThunk,
   deleteContactThunk,
@@ -20,6 +20,7 @@ const contactsSlice = createSlice({
 
   // 'extraReducers' для обробки 'зовнішніх екшенів' з асинхронних операцій, створених через createAsyncThunk (в файлі contactsOps.js)
   extraReducers: builder => {
+    // 'builder' для додавання обробників різних thunk-дій
     builder
       // Обробка fulfilled запиту для отримання всіх контактів (при першому завантаженні)
       .addCase(fetchContactsThunk.fulfilled, (state, action) => {

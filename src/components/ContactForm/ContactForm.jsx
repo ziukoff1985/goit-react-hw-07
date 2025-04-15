@@ -1,4 +1,4 @@
-// Rомпоненти та функції бібліотеки Formik
+// Компоненти та функції бібліотеки Formik
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from './ContactForm.module.css'; // Cтилі CSS
 
