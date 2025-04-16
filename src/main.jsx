@@ -12,6 +12,7 @@ import { store } from './redux/store.js';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* Обгортаємо застосунок у `Provider` для надання доступу до Redux-стору */}
+    {/* Provider - компонент, який підключає Redux-стор до застосунку -> аналог контексту (useContext) */}
     <Provider store={store}>
       <App />
     </Provider>

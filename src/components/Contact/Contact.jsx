@@ -15,7 +15,7 @@ const Contact = ({ name, number, id }) => {
 
   // Функція-обробник для видалення контакту
   const handleDelete = () => {
-    // Виклик deleteContactThunk з переданим id контакту
+    // Виклик deleteContactThunk (з файлу contactsOps) з переданим id контакту
     dispatch(deleteContactThunk(id));
   };
 

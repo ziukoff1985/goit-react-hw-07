@@ -25,7 +25,7 @@ const ContactForm = () => {
 
   // Функція-обробник відправки форми
   const handleSubmit = (values, actions) => {
-    // Викликаємо addContactThunk з даними форми
+    // Викликаємо addContactThunk (з файлу contactsOps) з даними форми
     dispatch(addContactThunk(values));
     actions.resetForm();
   };
